@@ -1,0 +1,20 @@
+[global_config]
+  tab_position = hidden
+[keybindings]
+[profiles]
+  [[default]]
+    background_color = "#1e1e1e"
+    font = Source Code Pro 10
+    foreground_color = "#ffffff"
+    show_titlebar = False
+    scrollbar_position = hidden
+    use_system_font = False
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+[plugins]

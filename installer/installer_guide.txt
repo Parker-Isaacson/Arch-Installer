@@ -1,0 +1,49 @@
+written in c++ and staticly compiled
+installer
+	--help				Lists this
+	--no-swap			Disables creating a swap partitions
+	--no-wm				Disables installing i3-wm and dependencies
+	--hostname <hostname> 		Used to set the hostname
+	--keyboard <keyboard>		Set the keyboard layout
+	--region <region>		Gives the region
+	--city <city>			Gives the city
+	--drive <drive>			gives the drive	
+	--user <user>			gives the user
+	--pass <password>		gives the password for user and root
+configure
+	--help				Lists this
+	--user				Sets the user profile where the configuration will be se
+
+Steps to manually install arch
+wipefs --all {drive}
+( make the partitions, and properly format )
+mount /dev/sdX /mnt # The root partiion
+swapon /dev/sdX # the swap partition
+pacstrap /mnt base linux linux-firmware ( vim )
+genfstab -U /mnt >> /mnt/etc/fstab
+arch-chroot /mnt
+ln -sf /usr/share/zoneinfo/Region/City /etc/localtime  # Replace with your region and city
+hwclock --systohc
+( Edit /etc/locale.gen to uncomment your desired locale (e.g., en_US.UTF-8), then / or echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen)
+locale-gen
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+echo "your_hostname" > /etc/hostname
+echo -e "127.0.0.1\tlocalhost\n::1\tlocalhost\n127.0.1.1\tyour_hostname.localdomain\tyour_hostname" > /etc/hosts
+passwd # set password of root
+pacman -S grub efibootmgr sudo networkmanager
+systemctl enable NetworkManager
+systemctl start NetworkManager
+mkdir /boot/EFI
+mount /dev/sdX /boot/EFI  # Replace sdX with your EFI partition
+grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=GRUB
+grub-mkconfig -o /boot/grub/grub.cfg
+user add -m -G wheel username #add the user profile as a sudoer
+passwd username # set the password
+EDITOR=vim visudo #  uncomment %wheel ALL=(ALL:ALL) ALL
+exit
+umount -R /mnt
+reboot
+
+pacman -S vim neofetch firefox gcc g++ gdb pipewire pipewire-pulse xorg xorg-xinit i3-gaps terminator polybar picom i3status dmenu
+echo "exec i3" > ~/.xinitrc
+startx
