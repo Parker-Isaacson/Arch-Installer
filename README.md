@@ -10,7 +10,7 @@ This installer installs Arch Linux with the optional ability for having a swap p
 ## How to use it
 ### Linux
 **THIS WILL DELETE ALL DATA ON THE USB DEVICE USED ALONG WITH THE DRIVE ARCH IS INSTALLED ON**
-First a bootable medium, like a USB. The drive must be partitioned to have 2 partitions, one that is 2GB and the other that takes up the remaining drive space. The partitioning can be done with any tool such as fdisk, cfidsk or any other drive partitioning tool. The first partition must have the bootable flag toggled; this can be done in fdisk. If partitioning the drive becomes two complex two drives can be used, one with the iso and the other with the installer. The partitions should be formatted as FAT32 for the bootable partition and ext4 ( or any other storage type ) for the storage partition. This can be done in the following way:
+First a bootable medium, like a USB. The drive must be formatted as a dos drive with 2 partitions, one that is 2GB and the other that takes up the remaining drive space. The partitioning can be done with any tool such as fdisk, cfidsk or any other drive partitioning tool. The first partition must have the bootable flag toggled; this can be done in fdisk. If partitioning the drive becomes two complex two drives can be used, one with the iso and the other with the installer. The partitions should be formatted as FAT32 for the bootable partition and ext4 ( or any other storage type ) for the storage partition. This can be done in the following way:
 ```
 sudo wipefs --all /dev/sdX
 sudo cfidsk /dev/sdX
